@@ -1,0 +1,18 @@
+百度AI人工智能
+
+// OCR（optical character reader）光学字符识别(文字识别)技术
+
+两种做法两种调用方式：
+
+一： API形式的调用——【纯前端可做；不需要自己配置后台】。
+	面向api开发者
+	前端调用接口。但要注意一下几点：https://ai.baidu.com/docs#/OCR-API-Access/top
+	1：跨域问题 (可设置代理解决)
+	2：每次都需要带url参数access_token（access_token需单独获得）
+	3：请求格式的不同以及Header的设置（post请求，参数在请求体中需要序列号才可以https://www.cnblogs.com/sloanlv/articles/11158976.html）
+	4：请求参数 img和url的格式【文档说img在base64后还要进行urlencode编码。但我实验只做了base64也可以。而且再urlencode编码后反而不行了；url文档说不支持https，但我实验了，是都支持的】
+
+二：SDK包的做法——【主要在后台操作，需要会nodejs等后台语言】
+	面向包集成的后台开发者  https://ai.baidu.com/docs#/OCR-Node-SDK/top
+	后台直接安装包，集成到项目里，然后直接调用内置方法即可，无需调用api，所以也无需带url参数access_token。但要带APP_ID，API_KEY，SECRET_KEY认证参数
+	其余参数类似api调用如img需要base64编码（可直接用nodejs包fs模块处理 var image = fs.readFileSync("assets/example.jpg").toString("base64")）
